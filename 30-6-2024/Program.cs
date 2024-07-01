@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,7 +22,7 @@ namespace _30_6_2024
             public int age;
             public string gender;
             public string e_mail;
-            public int phone;
+            public string phone;
 
             //constructor
             public Student() 
@@ -31,9 +32,43 @@ namespace _30_6_2024
                 this.age = 28;
                 this.gender = "female";
                 this.e_mail = "odatduha@gmail.com";
-                this.phone = 0777601083;
+                this.phone = "0777601083";
             }
 
+            public Student(int Id,string Name,int Age,string Gender,string E_mail,string Phone)
+            {
+                id = Id;
+                name = Name;
+                if(age>=18 && age<=60)
+                {
+                    age = Age;
+                }
+                else
+                {
+                    Console.WriteLine("out of Range!");
+                }
+
+                gender = Gender;
+
+                e_mail = E_mail;
+
+                if (isValidPhoneNumber(Phone))
+                {
+                    phone=Phone;
+                }
+
+                
+            }
+            public bool isValidPhoneNumber(string phone)
+            {
+
+                return phone.StartsWith("077") || phone.StartsWith("078") || phone.StartsWith("079");
+            }
+
+            public void display()
+            {
+                Console.WriteLine($"ID: {id}, Name: {name},Age: {age}, Gender: {gender}, Email: {e_mail},  Phone:{phone}");
+            }
 
         }
 
@@ -124,7 +159,9 @@ namespace _30_6_2024
 
             //Q5:
             Student student1 = new Student();
-            Console.WriteLine(student1.name);
+            student1.display();
+            Student student2 = new Student(2,"luna",24,"femal","luna@gmail.com","078641572");
+            student2.display();
         }
     }
 }
